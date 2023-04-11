@@ -1,0 +1,46 @@
+<div class="menu">
+  <div class="container">
+        <h2 class="menu_h2">Pizzas</h2>
+  </div>
+</div>
+
+<section class="List">
+  <form  *ngIf="pizzaForm"           
+  [formGroup]="pizzaForm"
+  name="miPizza">  
+  <div class="container">   
+    <div class="list_pizzas">    
+        <div class="pizza" *ngFor="let onePizza of pizza | pagination:pagina ">          
+          <div class="prueba">
+          <img class="pizza_img" [src]="onePizza.picture"/>
+            <select class="select" formControlName="size">    
+              <option value="selecciona">Tamaño</option>             
+              <option *ngFor="let s of sizeOptions" value="{{s}}">{{s | titlecase}}</option>     
+            </select> 
+            <div class="pizza_name">
+              <h3 class="cheese-pizza__title">{{ onePizza.name }}</h3>
+            </div>
+            <div class="div_ingredient">
+              <p class="pizza_ingredient" *ngFor="let oneIngredient of onePizza.ingredients">
+                {{oneIngredient.name}}
+              </p>
+            </div>
+            <button [disabled]="!pizzaForm.valid || !pizzaForm.get('size')?.value" class="button" (click)="addToCart(onePizza)"
+        *ngIf="pizzaForm.get('size')?.value !== 'selecciona'">
+         Añadir
+        </button>
+        <p class="error" *ngIf="pizzaForm.get('size')?.value === 'selecciona'">
+            Por favor, selecciona un tamaño
+        </p>       
+          </div>          
+      </div>   
+    </div>       
+    <div class="pagination-container">
+      <div class="pagination-button">
+        <img src="../../../assets/images/previous.png" alt="Previous" [ngStyle]="pagina <= 0 ? {'display': 'none'} : null" (click)="prevPage()" class="btn-img">
+        <img src="../../../assets/images/next.png"alt="Next" [ngStyle]="pagina >= 80 ? {'display': 'none'} : null" (click)="nextPage()" class="btn-img">
+      </div>
+    </div> 
+  </div>
+</form>
+</section>

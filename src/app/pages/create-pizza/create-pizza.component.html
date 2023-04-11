@@ -1,0 +1,167 @@
+<div class="menu">
+  <div class="container">
+        <h2 class="menu_h2">Mi pizza</h2>
+  </div>
+</div>
+
+<section class="create-pizza">
+<form
+  *ngIf="pizzaForm"
+  (submit)="createNewPizza()"
+  [formGroup]="pizzaForm"
+  name="miPizza"
+  class="pizza-form"
+>
+<div>
+  <h2 class="pizzah2">Crea tu pizza</h2>
+</div>
+  <div class="form-section">
+     <h4>Tamaño</h4>
+    <div class="size">
+    <div class="size1">
+    <p>
+      <input
+        class="form__input"
+        type="radio"
+        formControlName="size"
+        value="pequeña"
+      />Pequeña
+    </p>
+    <img class="s" src="../../../assets/images/size.png" />
+  </div>
+  <div  class="size1">
+    <p>
+      <input
+        class="form__input"
+        type="radio"
+        formControlName="size"
+        value="mediana"
+      />Mediana
+    </p>
+    <img class="m" src="../../../assets/images/size.png" />
+  </div>
+
+  <div  class="size1">
+    <p>
+      <input
+        class="form__input"
+        type="radio"
+        formControlName="size"
+        value="familiar"
+      />Familiar
+    </p>
+    <img class="l" src="../../../assets/images/size.png" />
+  </div>
+</div>
+  </div>
+  <div class="form-section">
+    <h4>Tipo de masa</h4>
+    <p>
+      <input
+        class="form__input"
+        type="radio"
+        formControlName="mass"
+        value="fina"
+      />Masa fina
+    </p>
+    <p>
+      <input
+        class="form__input"
+        type="radio"
+        formControlName="mass"
+        value="normal"
+      />Masa Original
+    </p>
+  </div>
+
+
+  <div class="form-section">
+    <h4>Tipo de salsa</h4>
+   <div class="dip">
+   <div class="dip1">
+   <p>
+     <input
+     class="form__input"
+     type="radio"
+     formControlName="dip"
+     value="tomate"
+   />Salsa de tomate
+   </p>
+   <img class="dipimg" src="../../../assets/images/Tomate.png" />
+ </div>
+ <div  class="dip1">
+   <p>
+     <input
+     lass="form__input"
+     type="radio"
+     formControlName="dip"
+     value="carbonara"
+   />Salsa carbonara
+   </p>
+   <img class="dipimg" src="../../../assets/images/Carbonara.png" />
+ </div>
+
+ <div  class="size1">
+   <p>
+     <input
+     class="form__input"
+     type="radio"
+     formControlName="dip"
+     value="barbacoa"
+   />Salsa barbacoa
+   </p>
+   <img class="dipimg" src="../../../assets/images/BBQ.png" />
+ </div>
+</div>
+ </div>
+
+  <div class="form-section">
+    <h4>Ingredientes</h4>
+    <div class="ingredient-columns">
+      <div class="ingredient-column">
+        <div *ngFor="let oneIngredient of ingredient.slice(0, halfLength)">
+          <label>
+            <input
+              type="checkbox"
+              formArrayName="ingredients"
+              (change)="onCheckboxChange($event, oneIngredient._id)"
+            />
+            <span>{{ oneIngredient.name }}</span>
+            <img [src]="oneIngredient.picture" />
+          </label>
+        </div>
+      </div>
+      <div class="ingredient-column">
+        <div *ngFor="let oneIngredient of ingredient.slice(halfLength)">
+          <label>
+            <input
+              type="checkbox"
+              formArrayName="ingredients"
+              (change)="onCheckboxChange($event, oneIngredient._id)"
+            />
+            <span>{{ oneIngredient.name }}</span>
+            <img [src]="oneIngredient.picture" />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit">Enviar</button>
+</form>
+
+
+<div class="resumen">
+  <div class="resumen-div">
+    <h3 class="title"> Resumen </h3>
+    <img class="pizzaR" src="../../../assets/images/banner-removebg-preview.png"/>
+    <p>Tamaño {{sizeRe}}</p>
+     <p>Masa {{ massRe }}</p>
+     <p>Salsa {{dipRe}}</p>
+     <p>Ingredientes:</p>    
+     <p *ngFor="let i of ingredientsRe">{{i}}</p>
+  </div>
+
+
+</div>
+</section>
+

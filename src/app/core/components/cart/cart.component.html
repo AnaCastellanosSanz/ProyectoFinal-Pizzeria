@@ -1,0 +1,88 @@
+<div *ngIf="showDropdown" id="dropdown">
+<div  class="productCart-wrapper">
+    <article class="prodctCart" *ngFor="let pizzaBuy of myCart$ | async">
+        <div class="product-body">
+            <p class="name">{{pizzaBuy.name}}</p>
+            <div class="product-body-info">
+                <p class="info">{{pizzaBuy.size}}</p>
+                <p class="info">{{pizzaBuy.price}}</p>
+                <img class="img" [src]="pizzaBuy.picture"/>
+            </div>
+        </div>
+        <div class="productCart-total">
+            <p>${{totalProduct(pizzaBuy.price, pizzaBuy.account)}}</p>
+            <p>{{pizzaBuy.account}}</p>
+        </div>
+        <div class="productCart-buttons">
+            <div class="productCart-buttons-operators">
+                <button (click)="updateUnits('minus', pizzaBuy._id, pizzaBuy.size)"> - </button>
+                <span>{{pizzaBuy.account}}</span>
+                <button (click)="updateUnits('add', pizzaBuy._id, pizzaBuy.size)"> + </button>
+            </div>
+            <button (click)="deleteProduct(pizzaBuy._id, pizzaBuy.size)">
+                <img src="../../../../assets/images/papelera.png" alt="Icono de Papelera" />
+              </button>
+            
+        </div>
+    </article>
+    <div class="cartTotal">
+       <p class="cartTotal-total">Total: $ {{totalCart()}} </p>
+    </div>
+
+<div class="botones">
+<button class="buttonForm" (click)="setRecoger()" (click)="showForm = true">Domicilio</button>
+<button class="buttonForm" (click)="setDomicilio()" (click)="showForm = true">Recoger</button>
+</div>
+
+<div class="contenidoFormulario" 
+*ngIf="showForm">
+    <form
+    *ngIf="orderForm"
+    (submit)="createCustomerOrder()"
+    [formGroup]="orderForm"
+    >
+  
+    <div class="inputForm">
+        <label for="name">Nombre:</label>
+        <input id="name" type="text" formControlName="name" required>
+    </div>
+    
+    <div class="inputForm">
+        <label for="surname">Apellido:</label>
+        <input id="surname" type="text" formControlName="surname" required>
+    </div>
+    
+    <div class="inputForm">
+        <label for="email">Email:</label>
+        <input id="email" type="email" formControlName="email" required>
+    </div>
+    
+    <div class="inputForm">
+        <label for="phoneNumber">Número de Telefono:</label>
+        <input id="phoneNumber" type="tel" formControlName="phoneNumber" pattern="^\d{9}$" required>
+    </div>
+    
+    <div class="inputForm" *ngIf="pickup">
+        <label for="shippingAddress">Indicanos tu direccion</label>
+        <input id="shippingAddress" type="text" formControlName="shippingAddress">
+    </div>
+    
+    <div class="inputForm" *ngIf="delivery">
+        <label for="store">Store:</label>
+        <select id="store" formControlName="store">
+            <option value="" disabled selected>Selecciona la tienda para recoger</option>
+            <option value="store1">Store 1</option>
+            <option value="store2">Store 2</option>
+            <option value="store3">Store 3</option>
+        </select>
+    </div>
+    
+</form>
+</div>
+
+
+
+    <button class="cart-btn" type="submit" (click)="handleButtonClick2()"> Comprar </button>
+</div>
+</div>
+

@@ -1,0 +1,36 @@
+<header class="header">
+  <a  (click)="goToHome()">
+    <img class="logo" src="../../../../assets/images/logo.png" />
+  </a>
+
+  <button class="navbar-toggle" (click)="toggleMenu()">
+    <i class="fas fa-bars">☰</i>
+  </button>
+
+  <nav class="navbar" [ngClass]="{'show': showMenu}">
+    <a href="#home" (click)="goToHome()">Home</a>
+    <a href="#pizzaCart" [routerLink]="['pizzaCart']">Pizzas</a>
+    <a href="#menu" [routerLink]="['create-pizza']">Mi pizza</a>
+    <a *ngIf="!isLogged" [routerLink]="['login']" class="user">
+      <img src="../../../../assets/images/usuario.png"/>
+    </a>
+    <div class="cart-icon" (click)="onToggleCart()">
+    <a *ngIf="isLogged" [routerLink]="['cart']">
+      <img href="#" class="shop" src="../../../../assets/images/carrito-de-compras. lapng"  />
+      <p
+      class="pizzasCount" 
+      >{{ pizzasCount() }}</p>
+    </a>
+    <i class="fa fa-shopping-cart"></i>
+    </div>
+
+    <a *ngIf="isLogged"
+       class="user" (click)="cerrarSesion()"> <img src="../../../../assets/images/cerrar-sesion.png"/></a>
+  </nav>
+</header>
+<div class="cart" [ngClass]="{show:viewCart}">
+  <app-cart>
+
+  </app-cart>
+</div>
+
